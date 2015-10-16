@@ -11,6 +11,8 @@ web:
   links:
     - redis:redis
     - postgres:postgres
+  volumes:
+    - .:/home/user/.sentry
   env_file: .env
 
 celerybeat:
@@ -18,6 +20,8 @@ celerybeat:
   links:
     - redis:redis
     - postgres:postgres
+  volumes:
+    - .:/home/user/.sentry
   env_file: .env
   command: sentry celery beat
 
@@ -26,6 +30,8 @@ celeryworker:
   links:
     - redis:redis
     - postgres:postgres
+  volumes:
+    - .:/home/user/.sentry
   env_file: .env
   command: sentry celery worker
 
