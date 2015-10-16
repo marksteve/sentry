@@ -1,0 +1,38 @@
+redis:
+  image: redis:latest
+  command: redis-server --appendonly yes
+
+postgres:
+  image: postgres:latest
+  env_file: .env
+
+web:
+  image: sentry:latest
+  links:
+    - redis:redis
+    - postgres:postgres
+  env_file: .env
+
+celerybeat:
+  image: sentry:latest
+  links:
+    - redis:redis
+    - postgres:postgres
+  env_file: .env
+  command: sentry celery beat
+
+celeryworker:
+  image: sentry:latest
+  links:
+    - redis:redis
+    - postgres:postgres
+  env_file: .env
+  command: sentry celery worker
+
+nginx:
+  build: nginx
+  ports:
+    - 80:80
+  links:
+    - web:web
+
