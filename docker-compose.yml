@@ -7,31 +7,25 @@ postgres:
   env_file: .env
 
 web:
-  image: sentry:latest
+  build: .
   links:
     - redis:redis
     - postgres:postgres
-  volumes:
-    - .:/home/user/.sentry
   env_file: .env
 
 celerybeat:
-  image: sentry:latest
+  build: .
   links:
     - redis:redis
     - postgres:postgres
-  volumes:
-    - .:/home/user/.sentry
   env_file: .env
   command: sentry celery beat
 
 celeryworker:
-  image: sentry:latest
+  build: .
   links:
     - redis:redis
     - postgres:postgres
-  volumes:
-    - .:/home/user/.sentry:ro
   env_file: .env
   command: sentry celery worker
 
