@@ -31,7 +31,7 @@ celeryworker:
     - redis:redis
     - postgres:postgres
   volumes:
-    - .:/home/user/.sentry
+    - .:/home/user/.sentry:ro
   env_file: .env
   command: sentry celery worker
 
