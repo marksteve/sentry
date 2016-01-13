@@ -1,7 +1,8 @@
 FROM sentry:latest
 
 # Copy config
-COPY sentry.conf.py /home/user/.sentry/sentry.conf.py
+COPY sentry.conf.py /home/user/.sentry/
+COPY config.yml /home/user/.sentry/
 
 # Install plugins
 USER root
