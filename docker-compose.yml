@@ -2,32 +2,25 @@ redis:
   image: redis:latest
   command: redis-server --appendonly yes
 
-postgres:
-  image: postgres:latest
-  env_file: .env
-
 web:
-  build: .
+  image: sentry:onbuild
   links:
     - redis:redis
-    - postgres:postgres
   ports:
     - 9000:9000
   env_file: .env
 
 celerybeat:
-  build: .
+  image: sentry:onbuild
   links:
     - redis:redis
-    - postgres:postgres
   env_file: .env
   command: sentry celery beat
 
 celeryworker:
-  build: .
+  image: sentry:onbuild
   links:
     - redis:redis
-    - postgres:postgres
   env_file: .env
   command: sentry celery worker
 
