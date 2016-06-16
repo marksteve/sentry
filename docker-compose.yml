@@ -10,17 +10,17 @@ web:
     - 9000:9000
   env_file: .env
 
-celerybeat:
+cron:
   image: sentry:onbuild
   links:
     - redis:redis
   env_file: .env
-  command: sentry celery beat
+  command: sentry run cron
 
-celeryworker:
+worker:
   image: sentry:onbuild
   links:
     - redis:redis
   env_file: .env
-  command: sentry celery worker
+  command: sentry run worker
 
