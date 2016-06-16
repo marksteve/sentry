@@ -3,7 +3,7 @@ redis:
   command: redis-server --appendonly yes
 
 web:
-  image: sentry:onbuild
+  build: .
   links:
     - redis:redis
   ports:
@@ -11,14 +11,14 @@ web:
   env_file: .env
 
 cron:
-  image: sentry:onbuild
+  build: .
   links:
     - redis:redis
   env_file: .env
   command: sentry run cron
 
 worker:
-  image: sentry:onbuild
+  build: .
   links:
     - redis:redis
   env_file: .env
