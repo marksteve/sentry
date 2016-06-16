@@ -11,6 +11,8 @@ web:
   links:
     - redis:redis
     - postgres:postgres
+  ports:
+    - 9000:9000
   env_file: .env
 
 celerybeat:
@@ -28,11 +30,4 @@ celeryworker:
     - postgres:postgres
   env_file: .env
   command: sentry celery worker
-
-nginx:
-  build: nginx
-  ports:
-    - 80:80
-  links:
-    - web:web
 
